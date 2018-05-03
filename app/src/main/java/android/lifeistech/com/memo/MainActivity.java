@@ -49,23 +49,28 @@ public class MainActivity extends AppCompatActivity {
         ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
-                Memo memo = (Memo) parent.getItemAtPosition(position);
-                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-                intent.putExtra("updateDate", memo.updateDate);
+                Project detail = (Project) parent.getItemAtPosition(position);
+
+                Intent intent = new Intent(MainActivity.this, CreateFeedback.class);
+                intent.putExtra("updateDate", detail.updateDate);
                 startActivity(intent);
+
+//                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
+//                intent.putExtra("updateDate", memo.updateDate);
+//                startActivity(intent);
 
             }
         });
     }
 
 
-    public void setMemoList(){
+    public void setFeedbackList(){
 
         //realmから読み取る
-        RealmResults<Memo> results = realm.where(Memo.class).findAll();
-        List<Memo> items = realm.copyFromRealm(results);
+        RealmResults<Project> results = realm.where(Project.class).findAll();
+        List<Project> items = realm.copyFromRealm(results);
 
-        MemoAdapter adapter = new MemoAdapter(this, R.layout.layout_item_memo, items);
+        FeedbackAdapter adapter = new FeedbackAdapter(this, R.layout.project_layout, items);
 
         ListView.setAdapter(adapter);
     }
@@ -76,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        setMemoList();
+        setFeedbackList();
     }
 
     @Override
@@ -85,16 +90,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //データをrealmに保存というメソッド
-    public void save(final String title, final String updateDate, final String content){
+    public void save(final String title, final String updateDate, final String comment, final String achievement){
 
         //メモを保存
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm realm) {
-                Memo memo = realm.createObject(Memo.class);
-                memo.title = title;
-                memo.updateDate = updateDate;
-                memo.content = content;
+                Project detail = realm.createObject(Project.class);
+                detail.title = title;
+                detail.updateDate = updateDate;
+                detail.comment = comment;
+                detail.achievement = achievement;
             }
         });
     }
@@ -132,11 +138,12 @@ public class MainActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.JAPANESE);
             String updateDate = sdf.format(date);
 
-            String content = "";
+            String comment = "";
+            String achievement = "";
 
-         save(title, updateDate, content);
+         save(title, updateDate, comment, achievement);
 
-        setMemoList();
+        setFeedbackList();
 
 
         }
