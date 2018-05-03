@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     public Realm realm;
     public ListView ListView;
+    public EditText titleEditText2;
 
 
     @Override
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
 
         ListView = (ListView)findViewById(R.id.listView);
+
 
 
 
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     public void setMemoList(){
 
         //realmから読み取る
@@ -66,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
         ListView.setAdapter(adapter);
     }
+
+
 
     @Override
     protected void onResume() {
@@ -79,12 +84,30 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    //データをrealmに保存というメソッド
+    public void save(final String title, final String updateDate, final String content){
+
+        //メモを保存
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                Memo memo = realm.createObject(Memo.class);
+                memo.title = title;
+                memo.updateDate = updateDate;
+                memo.content = content;
+            }
+        });
+    }
+
+
+
+
     public void create(View v){
 
 
         //カスタムビューの設定
-    LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
-    View view = inflater.inflate(R.layout.dialog_1, null);
+    final LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+    final View view = inflater.inflate(R.layout.dialog_1, null);
 
         //AlertDialog生成
     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -100,22 +123,20 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(DialogInterface dialog, int which){
 
 
-          EditText titleEditText = (EditText)findViewById(R.id.titleEditText2);
+          titleEditText2 = (EditText) view.findViewById(R.id.titleEditText2);
 
-        public void save (final String title){
-          realm.executeTransaction(new Realm.Transaction() {
-            @Override
-          public void execute(Realm realm) {
-            Memo memo = realm.createObject(Memo.class);
-          memo.title = title;
-        finish();
-         }
-         });
-          }
-         String title = titleEditText.getText().toString();
-         save(title);
-         finish();
 
+         String title = titleEditText2.getText().toString();
+
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.JAPANESE);
+            String updateDate = sdf.format(date);
+
+            String content = "";
+
+         save(title, updateDate, content);
+
+        setMemoList();
 
 
         }
