@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public Realm realm;
     public ListView ListView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
 
         ListView = (ListView)findViewById(R.id.listView);
+
+
 
         ListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -78,51 +81,65 @@ public class MainActivity extends AppCompatActivity {
 
     public void create(View v){
 
-        //カスタムビューの設定
-        LayoutInflater inflater
-                = LayoutInflater.from(MainActivity.this);
-        View view = inflater.inflate(R.layout.dialog_1, null);
 
-//AlertDialog生成
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //カスタムビューの設定
+    LayoutInflater inflater = LayoutInflater.from(MainActivity.this);
+    View view = inflater.inflate(R.layout.dialog_1, null);
+
+        //AlertDialog生成
+    final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 //タイトル設定
-        builder.setTitle("Project Name");
+              builder.setTitle("Project Name");
 
 //レイアウト設定
-        builder.setView(view);
+            builder.setView(view);
 
 //ＯＫボタン設定
-        builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int which){
-                EditText titleEditText = (EditText)findViewById(R.id.titleEditText);
-
-                Toast.makeText(MainActivity.this,titleEditText.getText().toString(),Toast.LENGTH_LONG).show();
-//                String title = titleEditText.getText().toString();
-//                Log.d("Memo", title);
+          builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
+        public void onClick(DialogInterface dialog, int which){
 
 
-            }
-        });
+          EditText titleEditText = (EditText)findViewById(R.id.titleEditText2);
+
+        public void save (final String title){
+          realm.executeTransaction(new Realm.Transaction() {
+            @Override
+          public void execute(Realm realm) {
+            Memo memo = realm.createObject(Memo.class);
+          memo.title = title;
+        finish();
+         }
+         });
+          }
+         String title = titleEditText.getText().toString();
+         save(title);
+         finish();
+
+
+
+        }
+    });
+
 
 
 //Cancelボタン設定
         builder.setNegativeButton("cancel",new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int which){
+               public void onClick(DialogInterface dialog, int which){
 //キャンセルなので何もしない
-            }
-        });
+             }
+         });
 
 //ダイアログの表示
-        builder.create().show();
+           builder.create().show();
 
-
+    }
 
 
 
 
 //        Intent intent = new Intent(this, CreateActivity.class);
 //        startActivity(intent);
-    }
+
 
 }

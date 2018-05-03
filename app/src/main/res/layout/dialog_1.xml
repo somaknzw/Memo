@@ -7,7 +7,7 @@
     android:padding="10dp">
 
     <EditText
-        android:id="@+id/titleEditText"
+        android:id="@+id/titleEditText2"
         android:layout_width="fill_parent"
         android:layout_height="match_parent" />
 
