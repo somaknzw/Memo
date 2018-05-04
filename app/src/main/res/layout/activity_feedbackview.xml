@@ -10,7 +10,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="16dp"
-        android:onClick="create"
+        android:onClick="gocreatefb"
         android:src="@drawable/ic_plus"
         android:text="作成"
         app:fabSize="normal" />

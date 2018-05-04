@@ -9,11 +9,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class FeedbackAdapter extends ArrayAdapter<Project> {
+public class ProjectAdapter extends ArrayAdapter<Project> {
 
     private LayoutInflater layoutinflater;
 
-    FeedbackAdapter(Context context, int textViewResourceId, List<Project> objects) {
+    ProjectAdapter(Context context, int textViewResourceId, List<Project> objects) {
         super(context, textViewResourceId, objects);
         layoutinflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -24,13 +24,13 @@ public class FeedbackAdapter extends ArrayAdapter<Project> {
         Project detail = getItem(position);
 
         if (convertView == null) {
-            convertView = layoutinflater.inflate(R.layout.project_layout, null);
+            convertView = layoutinflater.inflate(R.layout.project_title_layout, null);
         }
 
-        TextView commentText = (TextView) convertView.findViewById(R.id.titleText);
+        TextView titleText = (TextView) convertView.findViewById(R.id.titleText);
         TextView achievementText = (TextView) convertView.findViewById(R.id.achienementText);
 
-        commentText.setText(detail.comment);
+        titleText.setText(detail.title);
         achievementText.setText(detail.achievement);
 
         return convertView;

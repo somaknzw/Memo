@@ -51,8 +51,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
                 Project detail = (Project) parent.getItemAtPosition(position);
 
-                Intent intent = new Intent(MainActivity.this, CreateFeedback.class);
-                intent.putExtra("updateDate", detail.updateDate);
+
+                Intent intent = new Intent(MainActivity.this, FeedbackList.class);
+                intent.putExtra("title", detail.title);
                 startActivity(intent);
 
 //                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
@@ -64,13 +65,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setFeedbackList(){
+    public void setProjectList(){
 
         //realmから読み取る
         RealmResults<Project> results = realm.where(Project.class).findAll();
         List<Project> items = realm.copyFromRealm(results);
 
-        FeedbackAdapter adapter = new FeedbackAdapter(this, R.layout.project_layout, items);
+        ProjectAdapter adapter = new ProjectAdapter(this, R.layout.project_title_layout, items);
 
         ListView.setAdapter(adapter);
     }
@@ -81,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        setFeedbackList();
+        setProjectList();
     }
 
     @Override
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
          save(title, updateDate, comment, achievement);
 
-        setFeedbackList();
+        setProjectList();
 
 
         }

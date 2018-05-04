@@ -1,5 +1,6 @@
 package android.lifeistech.com.memo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,6 +24,7 @@ public class CreateFeedback extends AppCompatActivity{
     public TextView achievement;
     public SeekBar seekBar;
     public String percent;
+    public String kari;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,10 @@ public class CreateFeedback extends AppCompatActivity{
         achievement = (TextView) findViewById(R.id.text_view);
         seekBar = (SeekBar)findViewById(R.id.seekbar);
 
-        showData();
+        Intent intent = getIntent();
+        kari = intent.getStringExtra("title");
+
+//        showData();
 
 
         // 初期値
@@ -52,8 +57,9 @@ public class CreateFeedback extends AppCompatActivity{
                             SeekBar seekBar, int progress, boolean fromUser) {
                         // 68 % のようにフォーマト、
                         // この場合、Locale.USが汎用的に推奨される
-                        percent = String.format(Locale.US, "%d %%",progress);
+                        percent = String.format(Locale.US, "%d %%達成",progress);
                         achievement.setText(percent);
+
                     }
 
                     //ツマミがタッチされた時に呼ばれる
@@ -69,31 +75,39 @@ public class CreateFeedback extends AppCompatActivity{
                 });
     }
 
-    public void showData(){
-        final Project detail = realm.where(Project.class).equalTo("updateDate",
-                getIntent().getStringExtra("updateDate")).findFirst();
+//    public void showData(){
+//        final Project detail = realm.where(Project.class).equalTo("updateDate",
+//                getIntent().getStringExtra("updateDate")).findFirst();
+//
+//
+//        commentEditText.setText(detail.comment);
+//    }
 
+    public void save(final String title, final String comment, final String achievement){
 
-        commentEditText.setText(detail.comment);
+        realm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm bgrealm) {
+                Project detail = realm.createObject(Project.class);
+                detail.title = title;
+                detail.comment = comment;
+                detail.achievement = achievement;
+            }
+        });
     }
 
 
     public void create(View v){
 
-        final Project detail = realm.where(Project.class).equalTo("updateDate",
-                getIntent().getStringExtra("updateDate")).findFirst();
+//        Intent intent = getIntent();
 
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                detail.comment = commentEditText.getText().toString();
-                detail.achievement = percent;
-            }
-        });
+        String title = kari;
+        String comment = commentEditText.getText().toString();
+        String achievement = percent;
+
+        save(title, comment, achievement);
 
 
-
-        //終了する
         finish();
     }
 
