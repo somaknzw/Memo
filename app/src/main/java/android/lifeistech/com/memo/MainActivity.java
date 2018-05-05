@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     public void setProjectList(){
 
         //realmから読み取る
-        RealmResults<Project> results = realm.where(Project.class).findAll();
+        RealmResults<Project> results = realm.where(Project.class).isNotNull("updateDate").findAll();
         List<Project> items = realm.copyFromRealm(results);
 
         ProjectAdapter adapter = new ProjectAdapter(this, R.layout.project_title_layout, items);
@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //データをrealmに保存というメソッド
-    public void save(final String title, final String updateDate, final String comment, final String achievement){
+    public void save(final String title, final String updateDate){
 
         //メモを保存
         realm.executeTransaction(new Realm.Transaction() {
@@ -100,10 +100,12 @@ public class MainActivity extends AppCompatActivity {
                 Project detail = realm.createObject(Project.class);
                 detail.title = title;
                 detail.updateDate = updateDate;
-                detail.comment = comment;
-                detail.achievement = achievement;
+//                detail.comment = comment;
+//                detail.achievement = achievement;
             }
         });
+
+        Log.d("test", updateDate);
     }
 
 
@@ -139,12 +141,13 @@ public class MainActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.JAPANESE);
             String updateDate = sdf.format(date);
 
-            String comment = "";
-            String achievement = "";
+//            String comment = "";
+//            String achievement = "";
 
-         save(title, updateDate, comment, achievement);
+         save(title, updateDate);
 
         setProjectList();
+
 
 
         }

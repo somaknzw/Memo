@@ -34,7 +34,7 @@ public class FeedbackList extends AppCompatActivity {
     public void setFeedbacktList(){
 
         //realmから読み取る ここでタイトルから絞らせる
-        RealmResults<Project> results = realm.where(Project.class).equalTo("title", getIntent().getStringExtra("title")).findAll();
+        RealmResults<Project> results = realm.where(Project.class).equalTo("title", getIntent().getStringExtra("title")).isNull("updateDate").findAll();
         List<Project> items = realm.copyFromRealm(results);
 
         Intent intent = getIntent();

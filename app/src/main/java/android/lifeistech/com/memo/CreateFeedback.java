@@ -83,7 +83,7 @@ public class CreateFeedback extends AppCompatActivity{
 //        commentEditText.setText(detail.comment);
 //    }
 
-    public void save(final String title, final String comment, final String achievement){
+    public void save2(final String title, final String comment, final String achievement){
 
         realm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -105,7 +105,7 @@ public class CreateFeedback extends AppCompatActivity{
         String comment = commentEditText.getText().toString();
         String achievement = percent;
 
-        save(title, comment, achievement);
+        save2(title, comment, achievement);
 
 
         finish();
