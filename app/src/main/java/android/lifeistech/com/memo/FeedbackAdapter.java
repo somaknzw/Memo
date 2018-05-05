@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -27,11 +28,16 @@ public class FeedbackAdapter extends ArrayAdapter<Project> {
             convertView = layoutinflater.inflate(R.layout.project_layout, null);
         }
 
+        TextView dateText = (TextView)convertView.findViewById(R.id.date);
         TextView commentText = (TextView) convertView.findViewById(R.id.commentText);
-        TextView satisfactionText = (TextView) convertView.findViewById(R.id.satisfactionText);
+        RatingBar satisfaction = (RatingBar) convertView.findViewById(R.id.satisfaction);
+        satisfaction.setNumStars(5);
 
+        dateText.setText(detail.logdate);
         commentText.setText(detail.comment);
-        satisfactionText.setText(detail.satisfaction);
+        satisfaction.setRating(detail.satisfaction);
+
+        satisfaction.setIsIndicator(true);
 
         return convertView;
     }

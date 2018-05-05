@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -21,8 +22,8 @@ public class CreateFeedback extends AppCompatActivity{
 
     public Realm realm;
     public EditText commentEditText;
-    public TextView satisfaction;
-    public SeekBar seekBar;
+    public float manzoku;
+    public RatingBar ratingBar;
     public String percent;
     public String kari;
 
@@ -36,54 +37,30 @@ public class CreateFeedback extends AppCompatActivity{
 
         //関連付け
         commentEditText = (EditText)findViewById(R.id.comment);
-        satisfaction = (TextView) findViewById(R.id.text_view);
-        seekBar = (SeekBar)findViewById(R.id.seekbar);
+//        satisfaction = (TextView) findViewById(R.id.text_view);
+        ratingBar = (RatingBar) findViewById(R.id.ratingbar);
+        ratingBar.setNumStars(5);
 
         Intent intent = getIntent();
         kari = intent.getStringExtra("title");
 
-//        showData();
 
 
-        // 初期値
-        seekBar.setProgress(0);
-        // 最大値
-        seekBar.setMax(100);
-        seekBar.setOnSeekBarChangeListener(
-                new SeekBar.OnSeekBarChangeListener() {
-                    //ツマミがドラッグされると呼ばれる
-                    @Override
-                    public void onProgressChanged(
-                            SeekBar seekBar, int progress, boolean fromUser) {
-                        // 68 % のようにフォーマト、
-                        // この場合、Locale.USが汎用的に推奨される
-                        percent = String.format(Locale.US, "満足度%d %%",progress);
-                        satisfaction.setText(percent);
 
-                    }
 
-                    //ツマミがタッチされた時に呼ばれる
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {
-                    }
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
 
-                    //ツマミがリリースされた時に呼ばれる
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
-                    }
+                manzoku = ratingBar.getRating();
 
-                });
+            }
+        });
     }
 
-//    public void showData(){
-//        final Project detail = realm.where(Project.class).equalTo("updateDate",
-//                getIntent().getStringExtra("updateDate")).findFirst();
-//
-//
-//        commentEditText.setText(detail.comment);
-//    }
 
-    public void save2(final String title, final String comment, final String satisfaction, final String logdate){
+    public void save2(final String title, final String comment, final float satisfaction, final String logdate){
 
         realm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -100,11 +77,10 @@ public class CreateFeedback extends AppCompatActivity{
 
     public void create(View v){
 
-//        Intent intent = getIntent();
 
         String title = kari;
         String comment = commentEditText.getText().toString();
-        String satisfaction = percent;
+        float satisfaction = manzoku;
 
         Date today = new Date();
         SimpleDateFormat day = new SimpleDateFormat("MM-dd", Locale.JAPANESE);

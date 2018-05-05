@@ -120,13 +120,10 @@ public class MainActivity extends AppCompatActivity {
 
         //AlertDialog生成
     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
 //タイトル設定
               builder.setTitle("New Project");
-
 //レイアウト設定
             builder.setView(view);
-
 //ＯＫボタン設定
           builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
         public void onClick(DialogInterface dialog, int which){
@@ -141,14 +138,9 @@ public class MainActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.JAPANESE);
             String updateDate = sdf.format(date);
 
-//            String comment = "";
-//            String achievement = "";
-
          save(title, updateDate);
 
         setProjectList();
-
-
 
 
         }

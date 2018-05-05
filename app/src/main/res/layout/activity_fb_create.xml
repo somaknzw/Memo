@@ -12,9 +12,8 @@
     <EditText
         android:id="@+id/comment"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="60dp"
         android:layout_gravity="top"
-        android:layout_weight="1"
         android:ems="10"
         android:gravity="top"
         android:hint=""
@@ -29,12 +28,15 @@
         android:textColor="#000"
         android:textSize="50sp"  />
 
-    <SeekBar
-        android:id="@+id/seekbar"
-        android:layout_width="match_parent"
+    <RatingBar
+        android:id="@+id/ratingbar"
+        android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:layout_margin="20dp"
         android:background="#ccc"
-        android:layout_margin="20dp" />
+        android:numStars="5"
+        android:rating="0"
+        android:stepSize="0.5" />
 
     <Button
         android:id="@+id/button"
