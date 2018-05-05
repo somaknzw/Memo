@@ -27,11 +27,11 @@ public class FeedbackAdapter extends ArrayAdapter<Project> {
             convertView = layoutinflater.inflate(R.layout.project_layout, null);
         }
 
-        TextView commentText = (TextView) convertView.findViewById(R.id.titleText);
-        TextView achievementText = (TextView) convertView.findViewById(R.id.achienementText);
+        TextView commentText = (TextView) convertView.findViewById(R.id.commentText);
+        TextView satisfactionText = (TextView) convertView.findViewById(R.id.satisfactionText);
 
         commentText.setText(detail.comment);
-        achievementText.setText(detail.achievement);
+        satisfactionText.setText(detail.satisfaction);
 
         return convertView;
     }

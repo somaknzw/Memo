@@ -27,7 +27,7 @@ public class ProjectAdapter extends ArrayAdapter<Project> {
             convertView = layoutinflater.inflate(R.layout.project_title_layout, null);
         }
 
-        TextView titleText = (TextView) convertView.findViewById(R.id.titleText);
+        TextView titleText = (TextView) convertView.findViewById(R.id.commentText);
         TextView achievementText = (TextView) convertView.findViewById(R.id.achienementText);
 
         titleText.setText(detail.title);

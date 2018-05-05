@@ -21,7 +21,7 @@ public class CreateFeedback extends AppCompatActivity{
 
     public Realm realm;
     public EditText commentEditText;
-    public TextView achievement;
+    public TextView satisfaction;
     public SeekBar seekBar;
     public String percent;
     public String kari;
@@ -36,7 +36,7 @@ public class CreateFeedback extends AppCompatActivity{
 
         //関連付け
         commentEditText = (EditText)findViewById(R.id.comment);
-        achievement = (TextView) findViewById(R.id.text_view);
+        satisfaction = (TextView) findViewById(R.id.text_view);
         seekBar = (SeekBar)findViewById(R.id.seekbar);
 
         Intent intent = getIntent();
@@ -57,8 +57,8 @@ public class CreateFeedback extends AppCompatActivity{
                             SeekBar seekBar, int progress, boolean fromUser) {
                         // 68 % のようにフォーマト、
                         // この場合、Locale.USが汎用的に推奨される
-                        percent = String.format(Locale.US, "%d %%達成",progress);
-                        achievement.setText(percent);
+                        percent = String.format(Locale.US, "満足度%d %%",progress);
+                        satisfaction.setText(percent);
 
                     }
 
@@ -83,7 +83,7 @@ public class CreateFeedback extends AppCompatActivity{
 //        commentEditText.setText(detail.comment);
 //    }
 
-    public void save2(final String title, final String comment, final String achievement){
+    public void save2(final String title, final String comment, final String satisfaction, final String logdate){
 
         realm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -91,7 +91,8 @@ public class CreateFeedback extends AppCompatActivity{
                 Project detail = realm.createObject(Project.class);
                 detail.title = title;
                 detail.comment = comment;
-                detail.achievement = achievement;
+                detail.satisfaction = satisfaction;
+                detail.logdate = logdate;
             }
         });
     }
@@ -103,9 +104,13 @@ public class CreateFeedback extends AppCompatActivity{
 
         String title = kari;
         String comment = commentEditText.getText().toString();
-        String achievement = percent;
+        String satisfaction = percent;
 
-        save2(title, comment, achievement);
+        Date today = new Date();
+        SimpleDateFormat day = new SimpleDateFormat("MM-dd", Locale.JAPANESE);
+        String logdate = day.format(today);
+
+        save2(title, comment, satisfaction, logdate);
 
 
         finish();

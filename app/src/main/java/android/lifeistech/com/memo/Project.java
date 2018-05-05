@@ -13,9 +13,10 @@ public class Project extends RealmObject {
 
     public String title;
     public String comment;
-    public String manzoku;
+    public String satisfaction;
     public String updateDate;
     public String achievement;
+    public String logdate;
 
 }
 

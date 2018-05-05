@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
 //タイトル設定
-              builder.setTitle("Project Name");
+              builder.setTitle("New Project");
 
 //レイアウト設定
             builder.setView(view);
@@ -147,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
          save(title, updateDate);
 
         setProjectList();
+
 
 
 

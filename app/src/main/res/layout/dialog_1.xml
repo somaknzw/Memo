@@ -9,6 +9,7 @@
     <EditText
         android:id="@+id/titleEditText2"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:hint="新規プロジェクト名" />
 
 </LinearLayout>

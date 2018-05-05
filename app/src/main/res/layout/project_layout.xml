@@ -5,16 +5,16 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/titleText"
+        android:id="@+id/commentText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/achienementText"
+        android:id="@+id/satisfactionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleText"
+        android:layout_below="@id/commentText"
         android:ellipsize="end"
         android:gravity="end"
         android:lines="1"
