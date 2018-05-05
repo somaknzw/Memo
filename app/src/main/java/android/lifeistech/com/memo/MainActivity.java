@@ -130,9 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
 
           titleEditText2 = (EditText) view.findViewById(R.id.titleEditText2);
-
-
-         String title = titleEditText2.getText().toString();
+          String title = titleEditText2.getText().toString();
 
             Date date = new Date();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.JAPANESE);
@@ -146,15 +144,12 @@ public class MainActivity extends AppCompatActivity {
         }
     });
 
-
-
 //Cancelボタン設定
         builder.setNegativeButton("cancel",new DialogInterface.OnClickListener(){
                public void onClick(DialogInterface dialog, int which){
 //キャンセルなので何もしない
              }
          });
-
 //ダイアログの表示
            builder.create().show();
 

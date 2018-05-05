@@ -28,10 +28,10 @@ public class ProjectAdapter extends ArrayAdapter<Project> {
         }
 
         TextView titleText = (TextView) convertView.findViewById(R.id.commentText);
-        TextView achievementText = (TextView) convertView.findViewById(R.id.achienementText);
+ //       TextView achievementText = (TextView) convertView.findViewById(R.id.achienementText);
 
         titleText.setText(detail.title);
-        achievementText.setText(detail.achievement);
+//        achievementText.setText(detail.achievement);
 
         return convertView;
     }

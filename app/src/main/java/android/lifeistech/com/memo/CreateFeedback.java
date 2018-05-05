@@ -1,9 +1,12 @@
 package android.lifeistech.com.memo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
@@ -26,6 +29,8 @@ public class CreateFeedback extends AppCompatActivity{
     public RatingBar ratingBar;
     public String percent;
     public String kari;
+    public SeekBar seekBar;
+    public int tassei;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +65,10 @@ public class CreateFeedback extends AppCompatActivity{
     }
 
 
+
     public void save2(final String title, final String comment, final float satisfaction, final String logdate){
+
+        startdialog();
 
         realm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -70,29 +78,116 @@ public class CreateFeedback extends AppCompatActivity{
                 detail.comment = comment;
                 detail.satisfaction = satisfaction;
                 detail.logdate = logdate;
+  //              detail.achievement = achievement;
             }
         });
+    }
+
+    public void startdialog(){
+        //カスタムビューの設定
+        final LayoutInflater inflater = LayoutInflater.from(CreateFeedback.this);
+        final View view = inflater.inflate(R.layout.achievement, null);
+
+        //AlertDialog生成
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//タイトル設定
+        builder.setTitle("達成率を入力");
+//レイアウト設定
+        builder.setView(view);
+//ＯＫボタン設定
+        builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+                seekBar = (SeekBar) view.findViewById(R.id.seekbar);
+                // 初期値
+                seekBar.setProgress(0);
+                // 最大値
+                seekBar.setMax(100);
+                seekBar.setOnSeekBarChangeListener(
+                        new SeekBar.OnSeekBarChangeListener() {
+                            //ツマミがドラッグされると呼ばれる
+                            @Override
+                            public void onProgressChanged(
+                                    SeekBar seekBar, int progress, boolean fromUser) {
+                                // 68 % のようにフォーマト、
+                                // この場合、Locale.USが汎用的に推奨される
+                                tassei = seekBar.getProgress();
+
+
+//                                String title = kari;
+//                                String comment = commentEditText.getText().toString();
+//                                float satisfaction = manzoku;
+//
+
+//                                Date today = new Date();
+//                                SimpleDateFormat day = new SimpleDateFormat("MM-dd", Locale.JAPANESE);
+//                                String logdate = day.format(today);
+//
+//                               save2(title, comment, satisfaction, logdate);
+
+
+
+                            }
+
+                            //ツマミがタッチされた時に呼ばれる
+                            @Override
+                            public void onStartTrackingTouch(SeekBar seekBar) {
+                            }
+
+                            //ツマミがリリースされた時に呼ばれる
+                            @Override
+                            public void onStopTrackingTouch(SeekBar seekBar) {
+                            }
+
+                        });
+
+
+            }
+
+
+        });
+
+//Cancelボタン設定
+        builder.setNegativeButton("cancel",new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int which){
+//キャンセルなので何もしない
+            }
+        });
+//ダイアログの表示
+        builder.create().show();
+
+
+
     }
 
 
     public void create(View v){
 
-
+//            startdialog();
         String title = kari;
         String comment = commentEditText.getText().toString();
         float satisfaction = manzoku;
+
 
         Date today = new Date();
         SimpleDateFormat day = new SimpleDateFormat("MM-dd", Locale.JAPANESE);
         String logdate = day.format(today);
 
+//        String achievement;
+
+
+
         save2(title, comment, satisfaction, logdate);
 
-
         finish();
-    }
 
 
     }
+
+
+
+}
+
+
+
 
 
