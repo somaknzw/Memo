@@ -35,7 +35,7 @@ public class ProjectAdapter extends ArrayAdapter<Project> {
         titleText.setText(detail.title);
 
         progressbar.setMax(100);
-        progressbar.setProgress(30);
+        progressbar.setProgress(detail.achievement);
 
         return convertView;
     }

@@ -19,6 +19,7 @@ public class FeedbackList extends AppCompatActivity {
     public ProgressBar progressBar;
 
     public String test;
+    public String updateDate;
 
 
 
@@ -42,6 +43,7 @@ public class FeedbackList extends AppCompatActivity {
 
         Intent intent = getIntent();
         test = intent.getStringExtra("title");
+        updateDate = intent.getStringExtra("updateDate");
 
         FeedbackAdapter adapter = new FeedbackAdapter(this, R.layout.project_layout, items);
 
@@ -68,6 +70,7 @@ public class FeedbackList extends AppCompatActivity {
     public void gocreatefb(View v){
         Intent intent = new Intent(FeedbackList.this, CreateFeedback.class);
         intent.putExtra("title", test);
+        intent.putExtra("updateDate", updateDate);
         startActivity(intent);
 
     }

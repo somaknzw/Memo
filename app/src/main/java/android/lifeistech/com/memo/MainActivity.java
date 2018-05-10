@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, FeedbackList.class);
                 intent.putExtra("title", detail.title);
+                intent.putExtra("updateDate", detail.updateDate);
                 startActivity(intent);
 
 //                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
