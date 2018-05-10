@@ -6,7 +6,7 @@
         android:name=".MemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="プロジェクト"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -18,8 +18,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateActivity" />
-        <activity android:name=".FeedbackList" />
-        <activity android:name=".CreateFeedback" />
+        <activity android:name=".FeedbackList"
+            android:label="フィードバック一覧"/>
+        <activity android:name=".CreateFeedback"
+            android:label="本日のフィードバックを記入"/>
         <activity android:name=".DetailActivity" />
     </application>
 

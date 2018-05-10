@@ -8,8 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+import android.widget.ProgressBar;
 
 public class ProjectAdapter extends ArrayAdapter<Project> {
+
 
     private LayoutInflater layoutinflater;
 
@@ -28,10 +30,12 @@ public class ProjectAdapter extends ArrayAdapter<Project> {
         }
 
         TextView titleText = (TextView) convertView.findViewById(R.id.commentText);
- //       TextView achievementText = (TextView) convertView.findViewById(R.id.achienementText);
+        ProgressBar progressbar = (ProgressBar) convertView.findViewById(R.id.progressBar2);
 
         titleText.setText(detail.title);
-//        achievementText.setText(detail.achievement);
+
+        progressbar.setMax(100);
+        progressbar.setProgress(30);
 
         return convertView;
     }

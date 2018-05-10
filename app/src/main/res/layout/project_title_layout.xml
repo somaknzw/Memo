@@ -10,14 +10,13 @@
         android:layout_height="wrap_content"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/achienementText"
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/commentText"
-        android:ellipsize="end"
-        android:gravity="end"
-        android:lines="1"
-        android:textSize="16sp" />
+        android:layout_height="30dp"
+        android:layout_below="@+id/commentText"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
 
 </RelativeLayout>

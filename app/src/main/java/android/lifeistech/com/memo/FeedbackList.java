@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class FeedbackList extends AppCompatActivity {
 
     public Realm realm;
     public ListView feed_back_list;
+    public ProgressBar progressBar;
 
     public String test;
 
@@ -28,6 +30,7 @@ public class FeedbackList extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
 
         feed_back_list = (ListView)findViewById(R.id.listView2);
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
 
     }
 
@@ -43,6 +46,10 @@ public class FeedbackList extends AppCompatActivity {
         FeedbackAdapter adapter = new FeedbackAdapter(this, R.layout.project_layout, items);
 
         feed_back_list.setAdapter(adapter);
+
+//      今からachievementから数値入手、それをバーに表示
+        progressBar.setMax(100); // 水平プログレスバーの最大値を設定
+        progressBar.setProgress(20); // 水平プログレスバーの値を設定　ここはちょいいじる
     }
 
     @Override

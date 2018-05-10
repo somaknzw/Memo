@@ -27,10 +27,11 @@ public class CreateFeedback extends AppCompatActivity{
     public EditText commentEditText;
     public float manzoku;
     public RatingBar ratingBar;
-    public String percent;
     public String kari;
     public SeekBar seekBar;
     public int tassei;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,26 +50,53 @@ public class CreateFeedback extends AppCompatActivity{
         Intent intent = getIntent();
         kari = intent.getStringExtra("title");
 
-
-
-
-
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-
                 manzoku = ratingBar.getRating();
+
 
             }
         });
+
+
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        // 初期値
+        seekBar.setProgress(0);
+        // 最大値
+        seekBar.setMax(100);
+        seekBar.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+                    //ツマミがドラッグされると呼ばれる
+                    @Override
+                    public void onProgressChanged(
+                            SeekBar seekBar, int progress, boolean fromUser) {
+                        // 68 % のようにフォーマト、
+                        // この場合、Locale.USが汎用的に推奨される
+                        tassei = seekBar.getProgress();
+
+
+                    }
+
+                    //ツマミがタッチされた時に呼ばれる
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+                    }
+
+                    //ツマミがリリースされた時に呼ばれる
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+                    }
+
+                });
     }
 
 
 
-    public void save2(final String title, final String comment, final float satisfaction, final String logdate){
+    public void save2(final String title, final String comment, final float satisfaction, final String logdate, final int achievement){
 
-        startdialog();
+//        startdialog();
 
         realm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -78,12 +106,13 @@ public class CreateFeedback extends AppCompatActivity{
                 detail.comment = comment;
                 detail.satisfaction = satisfaction;
                 detail.logdate = logdate;
-  //              detail.achievement = achievement;
+                detail.achievement = achievement;
+
             }
         });
     }
 
-    public void startdialog(){
+/*    public void startdialog(){
         //カスタムビューの設定
         final LayoutInflater inflater = LayoutInflater.from(CreateFeedback.this);
         final View view = inflater.inflate(R.layout.achievement, null);
@@ -158,7 +187,7 @@ public class CreateFeedback extends AppCompatActivity{
 
 
     }
-
+*/
 
     public void create(View v){
 
@@ -166,17 +195,17 @@ public class CreateFeedback extends AppCompatActivity{
         String title = kari;
         String comment = commentEditText.getText().toString();
         float satisfaction = manzoku;
+        int achievement = tassei;
 
 
         Date today = new Date();
         SimpleDateFormat day = new SimpleDateFormat("MM-dd", Locale.JAPANESE);
         String logdate = day.format(today);
 
-//        String achievement;
 
 
 
-        save2(title, comment, satisfaction, logdate);
+        save2(title, comment, satisfaction, logdate, achievement);
 
         finish();
 
