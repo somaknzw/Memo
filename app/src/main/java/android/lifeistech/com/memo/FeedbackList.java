@@ -1,11 +1,15 @@
 package android.lifeistech.com.memo;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -20,6 +24,8 @@ public class FeedbackList extends AppCompatActivity {
 
     public String test;
     public String updateDate;
+    public TextView text;
+    public int per;
 
 
 
@@ -32,6 +38,13 @@ public class FeedbackList extends AppCompatActivity {
 
         feed_back_list = (ListView)findViewById(R.id.listView2);
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        text = (TextView)findViewById(R.id.textView2);
+
+
+//        ActionBar actionBar = getActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+
+
 
     }
 
@@ -51,9 +64,21 @@ public class FeedbackList extends AppCompatActivity {
 
 //      今からachievementから数値入手、それをバーに表示
         progressBar.setMax(100); // 水平プログレスバーの最大値を設定
-        progressBar.setProgress(20); // 水平プログレスバーの値を設定　ここはちょいいじる
+        per = intent.getIntExtra("achievement", 0);
+        progressBar.setProgress(per); // 水平プログレスバーの値を設定　
+        text.setText("現在"+(String.valueOf(per))+"%達成");
     }
 
+/*    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+*/
     @Override
     protected void onResume() {
         super.onResume();

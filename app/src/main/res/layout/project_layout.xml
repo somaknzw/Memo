@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/date"
         android:ellipsize="end"
-        android:gravity="end"
+        android:gravity="right"
         android:lines="1"
         android:numStars="5"
         android:stepSize="0.5"

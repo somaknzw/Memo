@@ -15,39 +15,55 @@
         android:layout_height="60dp"
         android:layout_gravity="top"
         android:ems="10"
-        android:gravity="top"
-        android:hint=""
-        android:inputType="textPersonName" />
+        android:gravity="top|start"
+        android:hint="コメントを入力"
+        android:inputType="textPersonName">
+        <requestFocus/>
+
+    </EditText>
+
 
     <TextView
         android:id="@+id/text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:gravity="center"
+        android:layout_gravity="top"
+        android:text="満足度"
         android:textColor="#000"
-        android:textSize="50sp"  />
+        android:textSize="20sp" />
 
     <RatingBar
         android:id="@+id/ratingbar"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
-        android:layout_margin="20dp"
-        android:background="#ccc"
+        android:layout_gravity="top|left"
         android:numStars="5"
         android:rating="0"
         android:stepSize="0.5" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:gravity="left"
+        android:text="進捗度"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="20dp"
+        android:layout_marginBottom="180dp"
+        android:layout_weight="1" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
+        android:layout_gravity="bottom|end"
+
         android:background="@color/colorPrimary"
         android:onClick="create"
         android:text="作成"

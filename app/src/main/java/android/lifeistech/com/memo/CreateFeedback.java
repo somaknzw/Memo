@@ -1,5 +1,6 @@
 package android.lifeistech.com.memo;
 
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
@@ -43,7 +45,6 @@ public class CreateFeedback extends AppCompatActivity{
 
         //関連付け
         commentEditText = (EditText)findViewById(R.id.comment);
-//        satisfaction = (TextView) findViewById(R.id.text_view);
         ratingBar = (RatingBar) findViewById(R.id.ratingbar);
         ratingBar.setNumStars(5);
 
@@ -58,14 +59,14 @@ public class CreateFeedback extends AppCompatActivity{
                 manzoku = ratingBar.getRating();
 
 
+
+
             }
         });
 
 
         seekBar = (SeekBar) findViewById(R.id.seekBar);
-        // 初期値
         seekBar.setProgress(0);
-        // 最大値
         seekBar.setMax(100);
         seekBar.setOnSeekBarChangeListener(
                 new SeekBar.OnSeekBarChangeListener() {
@@ -73,10 +74,7 @@ public class CreateFeedback extends AppCompatActivity{
                     @Override
                     public void onProgressChanged(
                             SeekBar seekBar, int progress, boolean fromUser) {
-                        // 68 % のようにフォーマト、
-                        // この場合、Locale.USが汎用的に推奨される
                         tassei = seekBar.getProgress();
-
 
                     }
 
@@ -91,6 +89,9 @@ public class CreateFeedback extends AppCompatActivity{
                     }
 
                 });
+
+        this.getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
 
     public void save3(){
@@ -111,8 +112,6 @@ public class CreateFeedback extends AppCompatActivity{
 
     public void save2(final String title, final String comment, final float satisfaction, final String logdate){
 
-//        startdialog();
-
         realm.executeTransaction(new Realm.Transaction() {
             @Override
             public void execute(Realm bgrealm) {
@@ -131,7 +130,6 @@ public class CreateFeedback extends AppCompatActivity{
 
     public void create(View v){
 
-//            startdialog();
         String title = kari;
         String comment = commentEditText.getText().toString();
         float satisfaction = manzoku;
@@ -142,16 +140,19 @@ public class CreateFeedback extends AppCompatActivity{
         SimpleDateFormat day = new SimpleDateFormat("MM-dd", Locale.JAPANESE);
         String logdate = day.format(today);
 
-
-
-
         save2(title, comment, satisfaction, logdate);
-
         save3();
 
         finish();
 
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        //realmを閉じる
+        realm.close();
     }
 
 

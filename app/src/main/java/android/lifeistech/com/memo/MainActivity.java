@@ -1,16 +1,21 @@
 package android.lifeistech.com.memo;
 
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -24,14 +29,17 @@ import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
+
+import static io.realm.log.RealmLog.clear;
 
 public class MainActivity extends AppCompatActivity {
 
     public Realm realm;
     public ListView ListView;
     public EditText titleEditText2;
-
+    public RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
 
         ListView = (ListView)findViewById(R.id.listView);
+
+//        recyclerView = (RecyclerView) findViewById(R.id.listView) ;
+
+
+
 
 
 
@@ -55,14 +68,47 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, FeedbackList.class);
                 intent.putExtra("title", detail.title);
                 intent.putExtra("updateDate", detail.updateDate);
+                intent.putExtra("achievement", detail.achievement);
                 startActivity(intent);
-
-//                Intent intent = new Intent(MainActivity.this, DetailActivity.class);
-//                intent.putExtra("updateDate", memo.updateDate);
-//                startActivity(intent);
 
             }
         });
+
+/*        ListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long l) {
+
+                delete(parent, position);
+
+                Project detail = (Project) parent.getItemAtPosition(position);
+
+                RealmResults<Project> results = realm.where(Project.class).equalTo("updateDate", detail.updateDate).findAll();
+
+                realm.beginTransaction();
+                results.remove(0);
+                detail.deleteFromRealm();
+                results.clear();
+
+                Toast.makeText(MainActivity.this, "削除しました", Toast.LENGTH_SHORT).show();
+
+                ArrayAdapter adapter = (ArrayAdapter)ListView.getAdapter();
+
+                adapter.notifyDataSetChanged();
+
+                realm.commitTransaction();
+*/
+
+/*                ArrayAdapter adapter = (ArrayAdapter)ListView.getAdapter();
+                String item = (String)adapter.getItem(position);
+                adapter.remove(item);
+
+                return false;
+
+            }
+        });
+*/
+
+
     }
 
 
@@ -76,6 +122,27 @@ public class MainActivity extends AppCompatActivity {
 
         ListView.setAdapter(adapter);
     }
+    public void delete(final AdapterView<?> parent, final int position){
+
+        Project detail = (Project) parent.getItemAtPosition(position);
+        RealmQuery<Project> query = realm.where(Project.class);
+        RealmResults<Project> results = query.equalTo("updateDate", detail.updateDate).findAll();
+        realm.beginTransaction();
+        results.remove(0);
+//        detail.deleteFromRealm();
+//        results.clear();
+
+        Toast.makeText(MainActivity.this, "削除しました", Toast.LENGTH_SHORT).show();
+
+        ArrayAdapter adapter = (ArrayAdapter)ListView.getAdapter();
+
+        adapter.notifyDataSetChanged();
+
+        realm.commitTransaction();
+
+    }
+
+
 
 
 
@@ -101,12 +168,9 @@ public class MainActivity extends AppCompatActivity {
                 Project detail = realm.createObject(Project.class);
                 detail.title = title;
                 detail.updateDate = updateDate;
-//                detail.comment = comment;
-//                detail.achievement = achievement;
             }
         });
 
-        Log.d("test", updateDate);
     }
 
 
@@ -122,9 +186,10 @@ public class MainActivity extends AppCompatActivity {
         //AlertDialog生成
     final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 //タイトル設定
-              builder.setTitle("New Project");
+              builder.setTitle("新規プロジェクト作成");
 //レイアウト設定
             builder.setView(view);
+
 //ＯＫボタン設定
           builder.setPositiveButton("OK",new DialogInterface.OnClickListener(){
         public void onClick(DialogInterface dialog, int which){
