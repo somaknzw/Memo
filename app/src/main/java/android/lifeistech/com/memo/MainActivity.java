@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public Realm realm;
     public ListView ListView;
     public EditText titleEditText2;
-    public RecyclerView recyclerView;
+    ProjectAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +50,6 @@ public class MainActivity extends AppCompatActivity {
         realm = Realm.getDefaultInstance();
 
         ListView = (ListView)findViewById(R.id.listView);
-
-//        recyclerView = (RecyclerView) findViewById(R.id.listView) ;
-
-
-
-
 
 
 
@@ -74,42 +68,66 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-/*        ListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+        ListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long l) {
-
-                delete(parent, position);
-
-                Project detail = (Project) parent.getItemAtPosition(position);
-
-                RealmResults<Project> results = realm.where(Project.class).equalTo("updateDate", detail.updateDate).findAll();
-
-                realm.beginTransaction();
-                results.remove(0);
-                detail.deleteFromRealm();
-                results.clear();
-
-                Toast.makeText(MainActivity.this, "削除しました", Toast.LENGTH_SHORT).show();
-
-                ArrayAdapter adapter = (ArrayAdapter)ListView.getAdapter();
-
-                adapter.notifyDataSetChanged();
-
-                realm.commitTransaction();
-*/
-
-/*                ArrayAdapter adapter = (ArrayAdapter)ListView.getAdapter();
-                String item = (String)adapter.getItem(position);
-                adapter.remove(item);
-
-                return false;
-
-            }
-        });
-*/
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                             builder.setMessage("プロジェクトを削除しますか？")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
 
-    }
+
+
+                                adapter = (ProjectAdapter) ListView.getAdapter();
+
+                                Project detail = adapter.getItem(position);
+
+
+
+                                //データを消して、リストを並べなおす
+                                adapter.remove(detail);
+
+                                adapter.notifyDataSetChanged();
+
+                                //realmからの消去
+                                RealmResults<Project> list = realm.where(Project.class)
+                                        .equalTo("updateDate",detail.updateDate).findAll();
+
+
+                                //begin-commitに挟むことで更新
+                                realm.beginTransaction();
+
+                                list.deleteFirstFromRealm();
+
+                                realm.commitTransaction();
+
+
+            } })
+
+
+                    .setNegativeButton("キャンセル",null).setCancelable(true);
+
+                builder.show();
+                return true;
+
+        }
+    });
+
+
+
+
+}
+
+
+
+
+
+
+
 
 
     public void setProjectList(){
@@ -124,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void delete(final AdapterView<?> parent, final int position){
+/*    public void delete(final AdapterView<?> parent, final int position){
 
         Project detail = (Project) parent.getItemAtPosition(position);
         RealmQuery<Project> query = realm.where(Project.class);
@@ -143,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         realm.commitTransaction();
 
     }
-
+*/
 
 
 

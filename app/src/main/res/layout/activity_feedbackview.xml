@@ -15,7 +15,7 @@
             android:layout_height="0dp"
             android:layout_weight="1.5"
             android:orientation="vertical"
-            android:elevation="4dp">
+            android:elevation="10dp">
 
             <TextView
                 android:id="@+id/textView2"
@@ -44,7 +44,8 @@
             <ListView
                 android:id="@+id/listView2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:divider="@null"/>
         </LinearLayout>
 
     </LinearLayout>
