@@ -122,6 +122,8 @@ public class MainActivity extends AppCompatActivity {
 
         ListView.setAdapter(adapter);
     }
+
+
     public void delete(final AdapterView<?> parent, final int position){
 
         Project detail = (Project) parent.getItemAtPosition(position);

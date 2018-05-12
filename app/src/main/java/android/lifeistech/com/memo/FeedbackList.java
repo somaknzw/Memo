@@ -67,6 +67,7 @@ public class FeedbackList extends AppCompatActivity {
         per = intent.getIntExtra("achievement", 0);
         progressBar.setProgress(per); // 水平プログレスバーの値を設定　
         text.setText("現在"+(String.valueOf(per))+"%達成");
+
     }
 
 /*    @Override
