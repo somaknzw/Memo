@@ -22,8 +22,8 @@ public class FeedbackAdapter extends ArrayAdapter<Project> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-//        Project detail = getItem(position);
-          Project detail = getItem(getCount()-1-position);//これで表示順を新しいものが上に。
+        Project detail = getItem(position);
+
         if (convertView == null) {
             convertView = layoutinflater.inflate(R.layout.project_layout, null);
         }

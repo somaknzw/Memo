@@ -18,11 +18,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateActivity" />
-        <activity android:name=".FeedbackList"
-            android:label="フィードバック一覧"/>
-        <activity android:name=".CreateFeedback"
-            android:label="本日のフィードバックを記入"/>
+        <activity
+            android:name=".FeedbackList"
+            android:label="フィードバック一覧" />
+        <activity
+            android:name=".CreateFeedback"
+            android:label="本日のフィードバックを記入" />
         <activity android:name=".DetailActivity" />
+        <activity android:name=".FeedbackdetailActivity"></activity>
     </application>
 
 </manifest>

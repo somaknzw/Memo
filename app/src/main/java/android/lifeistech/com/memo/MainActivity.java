@@ -79,14 +79,9 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-
-
-
                                 adapter = (ProjectAdapter) ListView.getAdapter();
 
                                 Project detail = adapter.getItem(position);
-
-
 
                                 //データを消して、リストを並べなおす
                                 adapter.remove(detail);
@@ -97,23 +92,17 @@ public class MainActivity extends AppCompatActivity {
                                 RealmResults<Project> list = realm.where(Project.class)
                                         .equalTo("updateDate",detail.updateDate).findAll();
 
-
                                 //begin-commitに挟むことで更新
                                 realm.beginTransaction();
 
                                 list.deleteFirstFromRealm();
 
                                 realm.commitTransaction();
-
-
             } })
-
-
-                    .setNegativeButton("キャンセル",null).setCancelable(true);
+                                        .setNegativeButton("キャンセル",null).setCancelable(true);
 
                 builder.show();
                 return true;
-
         }
     });
 
