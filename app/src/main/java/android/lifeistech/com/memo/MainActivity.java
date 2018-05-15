@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         //realmを開く
         realm = Realm.getDefaultInstance();
-
         ListView = (ListView)findViewById(R.id.listView);
 
 
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                                 list.deleteFirstFromRealm();
 
                                 realm.commitTransaction();
+                                Toast.makeText(MainActivity.this, "削除しました", Toast.LENGTH_SHORT).show();
             } })
                                         .setNegativeButton("キャンセル",null).setCancelable(true);
 
@@ -129,29 +130,6 @@ public class MainActivity extends AppCompatActivity {
 
         ListView.setAdapter(adapter);
     }
-
-
-/*    public void delete(final AdapterView<?> parent, final int position){
-
-        Project detail = (Project) parent.getItemAtPosition(position);
-        RealmQuery<Project> query = realm.where(Project.class);
-        RealmResults<Project> results = query.equalTo("updateDate", detail.updateDate).findAll();
-        realm.beginTransaction();
-        results.remove(0);
-//        detail.deleteFromRealm();
-//        results.clear();
-
-        Toast.makeText(MainActivity.this, "削除しました", Toast.LENGTH_SHORT).show();
-
-        ArrayAdapter adapter = (ArrayAdapter)ListView.getAdapter();
-
-        adapter.notifyDataSetChanged();
-
-        realm.commitTransaction();
-
-    }
-*/
-
 
 
 
@@ -211,7 +189,11 @@ public class MainActivity extends AppCompatActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.JAPANESE);
             String updateDate = sdf.format(date);
 
-         save(title, updateDate);
+            save(title, updateDate);
+
+            Toast toast = Toast.makeText(MainActivity.this, "保存しました", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM, 0, 0);
+            toast.show();
 
         setProjectList();
 

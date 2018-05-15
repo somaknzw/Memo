@@ -23,11 +23,13 @@ import java.util.Locale;
 import io.realm.Realm;
 import io.realm.RealmObject;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 public class CreateFeedback extends AppCompatActivity{
 
     public Realm realm;
     public EditText commentEditText;
+    public EditText titleEditText;
     public float manzoku;
     public RatingBar ratingBar;
     public String kari;
@@ -46,6 +48,7 @@ public class CreateFeedback extends AppCompatActivity{
 
         //関連付け
         commentEditText = (EditText)findViewById(R.id.comment);
+        titleEditText = (EditText)findViewById(R.id.text_fbtitle);
         ratingBar = (RatingBar) findViewById(R.id.ratingbar);
         ratingBar.setNumStars(5);
 
@@ -117,7 +120,7 @@ public class CreateFeedback extends AppCompatActivity{
 
 
 
-    public void save2(final String title, final String comment, final float satisfaction, final String logdate){
+    public void save2(final String title, final String comment, final float satisfaction, final String logdate, final String dayid, final String fb_title){
 
         realm.executeTransaction(new Realm.Transaction() {
             @Override
@@ -127,7 +130,8 @@ public class CreateFeedback extends AppCompatActivity{
                 detail.comment = comment;
                 detail.satisfaction = satisfaction;
                 detail.logdate = logdate;
-
+                detail.dayid = dayid;
+                detail.fb_title = fb_title;
 
             }
         });
@@ -139,16 +143,24 @@ public class CreateFeedback extends AppCompatActivity{
 
         String title = kari;
         String comment = commentEditText.getText().toString();
+        String fb_title = titleEditText.getText().toString();
         float satisfaction = manzoku;
 
 
 
+
         Date today = new Date();
-        SimpleDateFormat day = new SimpleDateFormat("MM-dd", Locale.JAPANESE);
+        SimpleDateFormat day = new SimpleDateFormat("M月d日", Locale.JAPANESE);
         String logdate = day.format(today);
 
-        save2(title, comment, satisfaction, logdate);
+        Date id = new Date();
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.JAPANESE);
+        String dayid = date.format(id);
+
+        save2(title, comment, satisfaction, logdate, dayid, fb_title);
         save3();
+
+        Toast.makeText(this, "保存しました", Toast.LENGTH_SHORT).show();
 
         finish();
 

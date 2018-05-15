@@ -9,7 +9,7 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="12dp"
         card_view:cardCornerRadius="4dp">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -37,7 +37,7 @@
                 style="?android:attr/ratingBarStyleIndicator" />
 
             <TextView
-                android:id="@+id/commentText"
+                android:id="@+id/fb_titleText"
                 android:layout_width="match_parent"
                 android:layout_height="41dp"
                 android:layout_below="@+id/satisfaction"

@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,9 +24,10 @@
             android:label="フィードバック一覧" />
         <activity
             android:name=".CreateFeedback"
-            android:label="本日のフィードバックを記入" />
+            android:label="フィードバックを記入" />
         <activity android:name=".DetailActivity" />
-        <activity android:name=".FeedbackdetailActivity"></activity>
+        <activity android:name=".DetailofFeedBackActivity">
+        </activity>
     </application>
 
 </manifest>

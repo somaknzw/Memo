@@ -7,12 +7,17 @@ import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.List;
@@ -54,6 +59,23 @@ public class FeedbackList extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
+        setTitle(getIntent().getStringExtra("title"));
+
+        feed_back_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+                Project detail = (Project) parent.getItemAtPosition(position);
+                Intent intent = new Intent(FeedbackList.this, DetailofFeedBackActivity.class);
+                intent.putExtra("dayid", detail.dayid);
+                intent.putExtra("date", detail.logdate);
+                startActivity(intent);
+
+            }
+        });
+
+
+
+
 
         feed_back_list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
@@ -75,7 +97,7 @@ public class FeedbackList extends AppCompatActivity {
                                 adapter.notifyDataSetChanged();
 
                                 //realmからの消去
-                                RealmResults<Project> list = realm.where(Project.class).equalTo("comment",detail.comment).findAll();
+                                RealmResults<Project> list = realm.where(Project.class).equalTo("dayid",detail.dayid).findAll();
 
                                 //begin-commitに挟むことで更新
                                 realm.beginTransaction();
@@ -83,6 +105,7 @@ public class FeedbackList extends AppCompatActivity {
                                 list.deleteFirstFromRealm();
 
                                 realm.commitTransaction();
+                                Toast.makeText(FeedbackList.this, "削除しました", Toast.LENGTH_SHORT).show();
                             } })
                         .setNegativeButton("キャンセル",null).setCancelable(true);
 
@@ -114,7 +137,7 @@ public class FeedbackList extends AppCompatActivity {
         progressBar.setMax(100); // 水平プログレスバーの最大値を設定
         per = intent.getIntExtra("achievement", 0);
         progressBar.setProgress(per); // 水平プログレスバーの値を設定　
-        text.setText("現在"+(String.valueOf(per))+"%達成");
+        text.setText("進捗:"+(String.valueOf(per))+"%");
 
     }
 

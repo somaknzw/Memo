@@ -10,15 +10,27 @@
 
 
     <EditText
-        android:id="@+id/comment"
+        android:id="@+id/text_fbtitle"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="top"
         android:ems="10"
         android:gravity="top|start"
-        android:hint="コメントを入力"
+        android:hint="ひとこと"
         android:inputType="textPersonName">
         <requestFocus/>
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_gravity="top"
+        android:ems="10"
+        android:gravity="top|start"
+        android:hint="メモ"
+        android:inputType="textMultiLine" >
 
     </EditText>
 

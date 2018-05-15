@@ -29,12 +29,12 @@ public class FeedbackAdapter extends ArrayAdapter<Project> {
         }
 
         TextView dateText = (TextView)convertView.findViewById(R.id.date);
-        TextView commentText = (TextView) convertView.findViewById(R.id.commentText);
+        TextView fb_titleText = (TextView) convertView.findViewById(R.id.fb_titleText);
         RatingBar satisfaction = (RatingBar) convertView.findViewById(R.id.satisfaction);
         satisfaction.setNumStars(5);
 
         dateText.setText(detail.logdate);
-        commentText.setText(detail.comment);
+        fb_titleText.setText(detail.fb_title);
         satisfaction.setRating(detail.satisfaction);
 
         satisfaction.setIsIndicator(true);

@@ -41,9 +41,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="4dp"
                 android:text="進捗状況"
-                android:textColor="#000"
                 android:textSize="20sp" />
 
             <ProgressBar

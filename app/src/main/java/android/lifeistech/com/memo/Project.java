@@ -17,6 +17,8 @@ public class Project extends RealmObject {
     public String updateDate;
     public int achievement;
     public String logdate;
+    public String dayid;
+    public String fb_title;
 
 }
 
