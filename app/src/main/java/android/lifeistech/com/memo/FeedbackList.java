@@ -137,7 +137,7 @@ public class FeedbackList extends AppCompatActivity {
         progressBar.setMax(100); // 水平プログレスバーの最大値を設定
         per = intent.getIntExtra("achievement", 0);
         progressBar.setProgress(per); // 水平プログレスバーの値を設定　
-        text.setText("進捗:"+(String.valueOf(per))+"%");
+        text.setText("達成率"+(String.valueOf(per))+"%");
 
     }
 

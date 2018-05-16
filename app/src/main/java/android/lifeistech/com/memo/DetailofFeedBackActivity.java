@@ -26,7 +26,7 @@ public class DetailofFeedBackActivity extends AppCompatActivity {
 
         text_fbtitle = (TextView) findViewById(R.id.text_fbtitle);
         text_fbcommnet = (TextView) findViewById(R.id.text_fbcmment);
-        text_satisfaction = (TextView)findViewById(R.id.text_satisfaction);
+        text_satisfaction = (TextView)findViewById(R.id.text_stf);
         showData();
 
 
@@ -46,7 +46,7 @@ public class DetailofFeedBackActivity extends AppCompatActivity {
 
         text_fbtitle.setText(detail.fb_title);
         text_fbcommnet.setText(detail.comment);
-        text_satisfaction.setText(String.valueOf(detail.satisfaction));
+        text_satisfaction.setText(String.valueOf(detail.satisfaction)+" / 5.0");
     }
 
     @Override
